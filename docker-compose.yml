@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+
+  backend:
+    build: .
+    container_name: edbin-backend
+    ports:
+      - "5000:5000"
+
+  frontend:
+    image: nginx:latest
+    container_name: edbin-frontend
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    ports:
+      - "80:80"
+
+  mysql:
+    image: mysql:8
+    container_name: edbin-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: motors
+    ports:
+      - "3306:3306"
