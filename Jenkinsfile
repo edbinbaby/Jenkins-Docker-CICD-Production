@@ -5,9 +5,9 @@ agent any
 stages {
 
 
-stage('Build Image'){
+stage('Build Image') {
 
-steps{
+steps {
 
 sh 'docker build -t devops-app .'
 
@@ -16,21 +16,21 @@ sh 'docker build -t devops-app .'
 }
 
 
-stage('Deploy Production'){
+stage('Deploy Production') {
 
-steps{
+steps {
 
 sh '''
 
 docker save devops-app > app.tar
 
 
-scp -i /root/EdbinBaby.pem \
+scp -i /var/jenkins_home/EdbinBaby.pem \
 -o StrictHostKeyChecking=no \
 app.tar ubuntu@172.31.26.159:/home/ubuntu/
 
 
-ssh -i /root/EdbinBaby.pem \
+ssh -i /var/jenkins_home/EdbinBaby.pem \
 -o StrictHostKeyChecking=no \
 ubuntu@172.31.26.159 "
 
@@ -52,6 +52,7 @@ devops-app
 }
 
 }
+
 
 }
 
